@@ -33,5 +33,14 @@ class StringTest {
 		//assertFalse(result);
 		assertTrue(!result);
 	}
+	
+	@Test
+	void split_basic() {
+		String arr= "abc def ghi";
+		String[] actualResult=arr.split(" ");
+		String[] result=new String[] {"abc", "def" , "ghi"};
+		
+		assertArrayEquals(result, actualResult);
+	}
 
 }
