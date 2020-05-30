@@ -8,7 +8,11 @@ class StringTest {
 
 	@Test
 	void test() {
-		fail("Not yet implemented");
+		
+		int actualLength = "ABCD".length();
+		int expectedLength = 4;
+		
+		assertEquals(expectedLength, actualLength);
 	}
 
 }
