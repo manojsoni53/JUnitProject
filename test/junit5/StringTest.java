@@ -2,10 +2,23 @@ package junit5;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 
 class StringTest {
 
+	@BeforeEach
+	void beforeEach(TestInfo info) {		//parameter is optional, in junit there was no parameter
+		System.out.println("Initialize test data for "+info.getDisplayName());
+	}
+	
+	@AfterEach
+	void afterEach(TestInfo info) {
+		System.out.println("data clean up for "+info.getDisplayName());
+	}
+	
 	@Test
 	void test() {
 		
