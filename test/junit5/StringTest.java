@@ -6,8 +6,11 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class StringTest {
 
@@ -32,6 +35,7 @@ class StringTest {
 	}
 	
 	@Test
+	@DisplayName("When String is null, throw an exception")
 	void length_exception() {
 		
 		String str = null;
@@ -41,6 +45,19 @@ class StringTest {
 			}
 				
 		);
+	}
+	
+	@Test
+	void length_greater_then_0() {
+		assertTrue("ABCD".length()>0);
+		assertTrue("ABC".length()>0);
+		assertTrue("A".length()>0);
+		assertTrue("DEF".length()>0);
+	}
+	@ParameterizedTest
+	@ValueSource(strings = {"ABCD","ABC","A","DEF"})			//valueSource can be uised with (ints,longs,doubles,strings)
+	void length_greater_then_0_Parameterize(String str) {
+		assertTrue(str.length()>0);
 	}
 	
 	@Test
