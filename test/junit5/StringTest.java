@@ -32,6 +32,18 @@ class StringTest {
 	}
 	
 	@Test
+	void length_exception() {
+		
+		String str = null;
+		assertThrows(NullPointerException.class, 
+			() -> {
+				str.length();
+			}
+				
+		);
+	}
+	
+	@Test
 	void test() {
 		
 		int actualLength = "ABCD".length();
