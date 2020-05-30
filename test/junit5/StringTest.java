@@ -10,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class StringTest {
@@ -56,9 +57,21 @@ class StringTest {
 	}
 	
 	@ParameterizedTest
-	@ValueSource(strings = {"ABCD","ABC","A","DEF"})			//valueSource can be uised with (ints,longs,doubles,strings)
+	@ValueSource(strings = {"ABCD","ABC","A","DEF"})		//valueSource can be used with (ints,longs,doubles,strings)[array of single value]
 	void length_greater_then_0_Parameterize(String str) {
 		assertTrue(str.length()>0);
+	}
+	
+	@ParameterizedTest
+	@CsvSource(value = {"abcd,ABCD","abc,ABC","'',''","abcdefg,ABCDEFG"})		//for operation on array of more than one value 
+	void uppercase(String word, String capitalizedWord) {
+		assertEquals(capitalizedWord,word.toUpperCase());		
+	}
+	
+	@ParameterizedTest
+	@CsvSource(value = {"abcd,4","abc,3","'',0","abcdefg,7"})		//for length 
+	void length(String word, int expectedLength) {
+		assertEquals(expectedLength,word.length());		
 	}
 	
 	@Test
