@@ -2,10 +2,13 @@ package junit5;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.Duration;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
@@ -97,8 +100,22 @@ class StringTest {
 	@RepeatedTest(10)
 	void contains_basic() {
 		String str="abcdefgh";
+		System.out.println("");
 		boolean result = str.contains("ijk");
 		assertTrue(!result);
+	}
+	
+	@Test
+	@Disabled	//In junit4 it was @ 
+	void performanceTest() {
+		assertTimeout(Duration.ofSeconds(5), 
+
+			() -> {
+				for(int i=0; i<900000;i++) {
+					System.out.println("---->"+i);
+				}
+			}
+		);
 	}
 	
 	@Test
