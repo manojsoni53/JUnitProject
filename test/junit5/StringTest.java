@@ -2,12 +2,20 @@ package junit5;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.Duration;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class StringTest {
 
@@ -32,6 +40,7 @@ class StringTest {
 	}
 	
 	@Test
+	@DisplayName("When String is null, throw an exception")
 	void length_exception() {
 		
 		String str = null;
@@ -41,6 +50,32 @@ class StringTest {
 			}
 				
 		);
+	}
+	
+	@Test
+	void length_greater_then_0() {
+		assertTrue("ABCD".length()>0);
+		assertTrue("ABC".length()>0);
+		assertTrue("A".length()>0);
+		assertTrue("DEF".length()>0);
+	}
+	
+	@ParameterizedTest
+	@ValueSource(strings = {"ABCD","ABC","A","DEF"})		//valueSource can be used with (ints,longs,doubles,strings)[array of single value]
+	void length_greater_then_0_Parameterize(String str) {
+		assertTrue(str.length()>0);
+	}
+	
+	@ParameterizedTest(name = "{0} convert uppercase to {1}")
+	@CsvSource(value = {"abcd,ABCD","abc,ABC","'',''","abcdefg,ABCDEFG"})		//for operation on array of more than one value 
+	void uppercase(String word, String capitalizedWord) {
+		assertEquals(capitalizedWord,word.toUpperCase());		
+	}
+	
+	@ParameterizedTest(name = "{0} length is {1}")					//to make name visible in output
+	@CsvSource(value = {"abcd,4","abc,3","'',0","abcdefg,7"})		//for length 
+	void length(String word, int expectedLength) {
+		assertEquals(expectedLength,word.length());		
 	}
 	
 	@Test
@@ -62,13 +97,25 @@ class StringTest {
 	}
 	
 	@Test
+	@RepeatedTest(10)
 	void contains_basic() {
 		String str="abcdefgh";
+		System.out.println("");
 		boolean result = str.contains("ijk");
-		
-		//assertEquals(false, result);
-		//assertFalse(result);
 		assertTrue(!result);
+	}
+	
+	@Test
+	@Disabled	//In junit4 it was @ 
+	void performanceTest() {
+		assertTimeout(Duration.ofSeconds(5), 
+
+			() -> {
+				for(int i=0; i<900000;i++) {
+					System.out.println("---->"+i);
+				}
+			}
+		);
 	}
 	
 	@Test
