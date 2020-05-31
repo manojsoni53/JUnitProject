@@ -7,6 +7,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -62,13 +63,13 @@ class StringTest {
 		assertTrue(str.length()>0);
 	}
 	
-	@ParameterizedTest
+	@ParameterizedTest(name = "{0} convert uppercase to {1}")
 	@CsvSource(value = {"abcd,ABCD","abc,ABC","'',''","abcdefg,ABCDEFG"})		//for operation on array of more than one value 
 	void uppercase(String word, String capitalizedWord) {
 		assertEquals(capitalizedWord,word.toUpperCase());		
 	}
 	
-	@ParameterizedTest
+	@ParameterizedTest(name = "{0} length is {1}")					//to make name visible in output
 	@CsvSource(value = {"abcd,4","abc,3","'',0","abcdefg,7"})		//for length 
 	void length(String word, int expectedLength) {
 		assertEquals(expectedLength,word.length());		
@@ -93,12 +94,10 @@ class StringTest {
 	}
 	
 	@Test
+	@RepeatedTest(10)
 	void contains_basic() {
 		String str="abcdefgh";
 		boolean result = str.contains("ijk");
-		
-		//assertEquals(false, result);
-		//assertFalse(result);
 		assertTrue(!result);
 	}
 	
