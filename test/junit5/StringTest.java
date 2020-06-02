@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
@@ -18,6 +19,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class StringTest {
+	
+	private String str;
 
 	@BeforeAll			  //Initialize once before any of the method or all method, even before @BeforeEach
 	static void beforeAll() {
@@ -125,6 +128,43 @@ class StringTest {
 		String[] result=new String[] {"abc", "def" , "ghi"};
 		
 		assertArrayEquals(result, actualResult);
+	}
+	
+	@Nested
+	@DisplayName("test for empty ")
+	class EmptyStringTests{
+		@BeforeEach
+		void setToEmpty() {
+			str="";
+		}
+		
+		@Test
+		@DisplayName("test for empty length")
+		void lengthIsZero() {
+			assertEquals(0, str.length());
+		}
+		
+		@Test
+		@DisplayName("test for empty uppercase")
+		void upperCaseIsEmpty() {
+			assertEquals("", str.toUpperCase());
+		}
+	}
+	
+	@Nested
+	@DisplayName("sdf")
+	class LargeStringTests{
+		@BeforeEach
+		void setToEmpty() {
+			str="ndjkfgkfgkdjfgkdhghdkghdk";
+		}
+		
+		@Test
+		@DisplayName("sdf")
+		void lengthIsLarge() {
+			assertTrue(str.length()>9);
+		}
+
 	}
 
 }
